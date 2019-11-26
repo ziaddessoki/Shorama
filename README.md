@@ -3,7 +3,7 @@
 **Bamazon-Client**
 
 <p align="center">
-  <img  src="giphy/bamazon-client.gif" height=250px width=500px >
+  <img  src="giphy/bamazon-client.gif" height=250px width=550px >
 </p>
 
 
