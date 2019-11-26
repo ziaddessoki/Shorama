@@ -101,7 +101,7 @@ function viewSale() {
 
     var table = new Table({
       head: ['Item ID', 'Product Name', 'Category', 'Price', 'Quantity'],
-      colWidths: [10, 15, 15, 10, 14]
+      colWidths: [10, 15, 15, 10, 10]
     });
     for (i = 0; i < res.length; i++) {
       table.push(
@@ -184,27 +184,31 @@ function addInv() {
       },
       {
         name: "quantity",
-        type: "number",
-        message: "Type the new number"
+        type: "input",
+        message: "How much are you adding to stock"
       }
     ])
-      .catch(function (answer) {
+      .then(function (answer) {
         var chosenItem;
+        // var chosenItemQuantity;
         for (var i = 0; i < results.length; i++) {
-          var line = "Product: " + results[i].product_name + "   " + "Quantity" + results[i].stock_quantity + "   " + "Department: " + results[i].department_name;
+          var line = "Product: " + results[i].product_name + "    " + "Quantity: " + results[i].stock_quantity + "    " + "Department: " + results[i].department_name;
           if (line === answer.edit) {
             chosenItem = results[i];
+            // chosenItemQuantity =results[i].stock_quantity;
+
+
           }
         }
 
-        // when finished prompting, insert a new item into the db with that info
-        // var newQuantity = chosenItem.stock_quantity
-        // newQuantity += answer.quantity
+  
+        var newQuantity = chosenItem.stock_quantity + parseInt(answer.quantity)
+        
         connection.query(
           "UPDATE products SET ? WHERE ?",
           [
             {
-              stock_quantity: answer.quantity
+              stock_quantity: newQuantity
             },
             {
               id: chosenItem.id
